@@ -40,7 +40,8 @@
     "dev": "unbuild --stub",
     "test": "vitest",
     "check": "biome check",
-    "format": "biome format . --write"
+    "format": "biome format . --write",
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [
     "shiki",
@@ -56,5 +57,8 @@
   },
   "dependencies": {
     "@shikijs/types": "^1.20.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
