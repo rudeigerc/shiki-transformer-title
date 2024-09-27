@@ -1,0 +1,60 @@
+{
+  "name": "@rudeigerc/shiki-transformer-title",
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.11.0",
+  "description": "Shiki transformer that adds an extra file title",
+  "author": "Yuchen Cheng <rudeigerc@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/rudeigerc/shiki-transformer-title#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rudeigerc/shiki-transformer-title.git"
+  },
+  "bugs": "https://github.com/rudeigerc/shiki-transformer-title/issues",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "test": "vitest",
+    "check": "biome check",
+    "format": "biome format . --write"
+  },
+  "keywords": [
+    "shiki",
+    "shiki-transformer"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.2",
+    "@types/hast": "^3.0.4",
+    "shiki": "^1.20.0",
+    "typescript": "^5.6.2",
+    "unbuild": "^2.0.0",
+    "vitest": "^2.1.1"
+  },
+  "dependencies": {
+    "@shikijs/types": "^1.20.0"
+  }
+}
