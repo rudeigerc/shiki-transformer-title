@@ -1,7 +1,7 @@
 {
   "name": "@rudeigerc/shiki-transformer-title",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "packageManager": "pnpm@10.13.1",
   "description": "Shiki transformer that adds an extra file title",
   "author": "Yuchen Cheng <rudeigerc@gmail.com>",
