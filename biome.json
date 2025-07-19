@@ -7,14 +7,18 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [".vscode", "node_modules"]
+    "includes": ["**", "!**/.vscode", "!**/node_modules"]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "linter": {
     "enabled": true,
@@ -40,11 +44,17 @@
   },
   "overrides": [
     {
-      "include": ["package.json"],
+      "includes": ["**/package.json"],
       "json": {
         "formatter": {
           "lineWidth": 1
         }
+      }
+    },
+    {
+      "includes": ["./test/output/case1.html"],
+      "formatter": {
+        "enabled": false
       }
     }
   ]

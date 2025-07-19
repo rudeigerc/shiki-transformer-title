@@ -2,7 +2,7 @@
   "name": "@rudeigerc/shiki-transformer-title",
   "type": "module",
   "version": "0.1.0",
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@10.13.1",
   "description": "Shiki transformer that adds an extra file title",
   "author": "Yuchen Cheng <rudeigerc@gmail.com>",
   "license": "MIT",
@@ -16,11 +16,10 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.js"
     }
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "typesVersions": {
@@ -36,10 +35,11 @@
   ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "unbuild",
-    "dev": "unbuild --stub",
+    "build": "tsdown src/index.ts --dts",
+    "dev": "pnpm build --watch",
     "test": "vitest",
     "check": "biome check",
+    "typecheck": "tsc --noEmit",
     "format": "biome format . --write",
     "prepublishOnly": "pnpm build"
   },
@@ -47,16 +47,17 @@
     "shiki",
     "shiki-transformer"
   ],
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.2",
-    "@types/hast": "^3.0.4",
-    "shiki": "^1.20.0",
-    "typescript": "^5.6.2",
-    "unbuild": "^2.0.0",
-    "vitest": "^2.1.1"
-  },
   "dependencies": {
-    "@shikijs/types": "^1.20.0"
+    "@shikijs/types": "^3.8.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
+    "@shikijs/types": "^3.8.0",
+    "@types/hast": "^3.0.4",
+    "shiki": "^3.8.0",
+    "tsdown": "^0.12.9",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
