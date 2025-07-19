@@ -52,7 +52,7 @@
       }
     },
     {
-      "includes": ["./test/output/case1.html"],
+      "includes": ["./test/output/*.html"],
       "formatter": {
         "enabled": false
       }

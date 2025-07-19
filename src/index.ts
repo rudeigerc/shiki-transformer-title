@@ -1,5 +1,5 @@
 import type { ShikiTransformer } from "@shikijs/types";
-import type { ElementContent } from "hast";
+import type { ElementContent, Root } from "hast";
 
 export const parseTitleString = (meta: string): string | null => {
   if (!meta) return null;
@@ -25,6 +25,30 @@ export interface TransformerTitleOptions {
 }
 
 /**
+ * Wraps the first `<pre>` element in a `<div>` with the specified class.
+ */
+const wrapPreWithBlock = (node: Root, classBlock: string): void => {
+  const firstChild = node.children[0];
+
+  if (
+    firstChild &&
+    firstChild.type === "element" &&
+    firstChild.tagName === "pre"
+  ) {
+    node.children = [
+      {
+        type: "element",
+        tagName: "div",
+        properties: {
+          class: classBlock,
+        },
+        children: [...node.children.map((child) => child as ElementContent)],
+      },
+    ];
+  }
+};
+
+/**
  * Allow using `title="index.ts"` in the code snippet meta to add an extra file title.
  */
 export const transformerTitle = (
@@ -44,31 +68,27 @@ export const transformerTitle = (
       const title = parseTitleString(this.options.meta.__raw);
 
       if (title) {
-        node.children = [
-          {
-            type: "element",
-            tagName: "div",
-            properties: {
-              class: classBlock,
-            },
-            children: [
-              {
-                type: "element",
-                tagName: "div",
-                properties: {
-                  class: classTitle,
-                },
-                children: [
-                  {
-                    type: "text",
-                    value: title,
-                  },
-                ],
-              },
-              ...node.children.map((child) => child as ElementContent),
-            ],
+        const titleElement: ElementContent = {
+          type: "element",
+          tagName: "div",
+          properties: {
+            class: classTitle,
           },
-        ];
+          children: [
+            {
+              type: "text",
+              value: title,
+            },
+          ],
+        };
+
+        wrapPreWithBlock(node, classBlock);
+
+        const child = node.children[0];
+
+        if (child && child.type === "element") {
+          child.children = [titleElement, ...child.children];
+        }
       }
     },
   };

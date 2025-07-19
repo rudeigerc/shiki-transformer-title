@@ -1,7 +1,8 @@
+import { transformerNotationDiff } from "@shikijs/transformers";
 import { createHighlighter } from "shiki";
 import { expect, it } from "vitest";
 import { transformerTitle } from "../src";
-import { fixture1 } from "./fixture";
+import { fixture1, fixture2 } from "./fixture";
 
 it("case1", async () => {
   const shiki = await createHighlighter({
@@ -18,5 +19,26 @@ it("case1", async () => {
     transformers: [transformerTitle()],
   });
 
-  expect(result).toMatchFileSnapshot("./output/case1.html");
+  await expect(result).toMatchFileSnapshot("./output/case1.html");
+});
+
+it("case2", async () => {
+  const shiki = await createHighlighter({
+    langs: ["ts"],
+    themes: ["github-dark"],
+  });
+
+  const result = shiki.codeToHtml(fixture2, {
+    lang: "ts",
+    theme: "github-dark",
+    meta: {
+      __raw: 'title="index.ts"',
+    },
+    transformers: [
+      transformerNotationDiff({ matchAlgorithm: "v3" }),
+      transformerTitle(),
+    ],
+  });
+
+  await expect(result).toMatchFileSnapshot("./output/case2.html");
 });
